@@ -109,7 +109,7 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
- function convertToRomanNumerals(num) {
+function convertToRomanNumerals(num) {
   const dict = [
     'I',
     'II',
@@ -123,11 +123,11 @@ function isIsoscelesTriangle(a, b, c) {
     'X',
     'XX',
     'XXX',
-];
+  ];
 
   if (num < 10) return dict[num - 1];
-  if (num % 10 === 0) return dict[9 + Math.floor(num/10)];
-  return Number(dict[8 + Math.floor(num/10)] + dict[num % 10 - 1]);
+  if (num % 10 === 0) return dict[8 + Math.floor(num / 10)];
+  return dict[8 + Math.floor(num / 10)] + dict[(num % 10) - 1];
 }
 
 /**
@@ -145,8 +145,41 @@ function isIsoscelesTriangle(a, b, c) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  const dict = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'point',
+    'minus',
+  ];
+  let result = '';
+
+  function convert(sym) {
+    switch (sym) {
+      case '-':
+        return dict[11];
+      case '.':
+      case ',':
+        return dict[10];
+      default:
+        return dict[Number(sym)];
+    }
+  }
+
+  const strLen = numberStr.length;
+  for (let i = 0; i < strLen; i += 1) {
+    result += convert(numberStr[i]);
+    if (i < strLen - 1) result += ' ';
+  }
+  return result;
 }
 
 /**
