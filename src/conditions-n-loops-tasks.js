@@ -303,48 +303,46 @@ function getSpiralMatrix(size) {
   let turn = 0;
   let tier = 0;
   let direction = 0;
-  let i = 0;
-  while (i < matrixLen) {
+  let i = 1;
+  while (i <= matrixLen) {
     let end = 0;
     switch (direction) {
       case 0:
         end = size - turn;
-        for (let j = turn; j < end; j += 1 ) {
+        for (let j = turn; j < end; j += 1) {
           result[turn][j] = i;
           i += 1;
         }
         tier += 1;
-        direction = 1
+        direction = 1;
         break;
       case 1:
         end = size;
-        for (let j = tier; j < end; j += 1) {
-          result[j][size - turn -1] = i;
+        for (let j = tier; j < end - turn; j += 1) {
+          result[j][size - turn - 1] = i;
           i += 1;
         }
-        direction = 2
+        direction = 2;
         break;
       case 2:
         end = size;
-        for (let j = tier; j < end; j += 1 ) {
-
-          result[size - turn - 1][size - j - 1] = i;
+        for (let j = tier; j < end - turn; j += 1) {
+          result[size - 1 - turn][size - 1 - j] = i;
           i += 1;
         }
-        direction = 3
-        tier += 1;
+        direction = 3;
         break;
       case 3:
         end = size;
-        for (let j = tier; j < end; j += 1 ) {
-          result[turn + 1][size - j - 1] = i;
+        for (let j = tier; j < end - 1; j += 1) {
+          result[size - j - tier][turn] = i;
           i += 1;
         }
-        direction = 0
+        direction = 0;
         turn += 1;
         break;
+      default:
     }
-    //   console.log(result, i, direction, tier, turn, matrixLen);
   }
   return result;
 }
