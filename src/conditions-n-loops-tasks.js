@@ -334,8 +334,8 @@ function getSpiralMatrix(size) {
         break;
       case 3:
         end = size;
-        for (let j = tier; j < end - 1; j += 1) {
-          result[size - j - tier][turn] = i;
+        for (let j = tier; j < end - tier; j += 1) {
+          result[size - j - tier + turn][turn] = i;
           i += 1;
         }
         direction = 0;
@@ -362,8 +362,17 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const result = [];
+  const arrLen = matrix.length;
+  for (let i = 0; i < arrLen; i += 1) {
+    const tmp = new Array(arrLen).fill(0);
+    for (let j = 0; j < arrLen; j += 1) {
+      tmp[j] = matrix[arrLen - 1 - j][i];
+    }
+    result.push(tmp);
+  }
+  return result;
 }
 
 /**
