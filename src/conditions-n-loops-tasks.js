@@ -296,9 +296,13 @@ function getBalanceIndex(arr) {
  */
 function getSpiralMatrix(size) {
   const matrixLen = size * size;
-  const result = [];
+  const result = new Array(size);
   for (let i = 0; i < size; i += 1) {
-    result.push(new Array(size).fill(0));
+    const tmp = new Array(size);
+    for (let j = 0; j < size; j += 1) {
+      tmp[j] = 0;
+    }
+    result[i] = tmp;
   }
   let turn = 0;
   let tier = 0;
@@ -363,14 +367,17 @@ function getSpiralMatrix(size) {
  *  ]                 ]
  */
 function rotateMatrix(matrix) {
-  const result = [];
   const arrLen = matrix.length;
+  const result = matrix;
+  const arrCopy = [...matrix];
+
   for (let i = 0; i < arrLen; i += 1) {
-    const tmp = new Array(arrLen).fill(0);
+    const tmp = new Array(arrLen);
+
     for (let j = 0; j < arrLen; j += 1) {
-      tmp[j] = matrix[arrLen - 1 - j][i];
+      tmp[j] = arrCopy[arrLen - 1 - j][i];
     }
-    result.push(tmp);
+    result[i] = tmp;
   }
   return result;
 }
