@@ -367,19 +367,35 @@ function getSpiralMatrix(size) {
  *  ]                 ]
  */
 function rotateMatrix(/* matrix */) {
-  // const arrLen = matrix.length;
-  // const result = matrix;
-  // const arrCopy = [...matrix];
+  // const rows = matrix.length;
+  // const cols = matrix[0].length;
+  // const result = [];
+  // const arrcopy = matrix;
+  // let tmp = [];
 
-  // for (let i = 0; i < arrLen; i += 1) {
-  //   const tmp = new Array(arrLen);
-
-  //   for (let j = 0; j < arrLen; j += 1) {
-  //     tmp[j] = arrCopy[arrLen - 1 - j][i];
+  // if (arrcopy.length === 1) {
+  //   [tmp] = arrcopy;
+  //   arrcopy.length = 0;
+  //   for (let i = 0; i < tmp.length; i += 1) {
+  //     arrcopy.push(tmp[i]);
   //   }
-  //   result[i] = tmp;
+  //   return arrcopy;
   // }
-  // return result;
+  // if (arrcopy.length > 1) {
+  //   for (let i = 0; i < cols; i += 1) {
+  //     tmp = [];
+  //     for (let j = rows - 1; j >= 0; j -= 1) {
+  //       tmp.push(matrix[j][i]);
+  //     }
+  //     result.push(tmp);
+  //   }
+
+  //   arrcopy.length = 0;
+  //   arrcopy.push(result);
+  // } else {
+  //   arrcopy.length = 0;
+  // }
+  // return matrix;
   throw new Error('Not implemented');
 }
 
@@ -469,15 +485,41 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  // const arr = [...number];
-
-  // number.reduceRight((total, item, index, arrNum) => {
-  //   if(index > 1 && arrNum[index - 1] < item) {
-
-  //   }
-  // });
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  let result = 0;
+  let arr = [];
+  let firstarr = [];
+  let lastarr = [];
+  let num = number;
+  while (num >= 1) {
+    arr.push(num % 10);
+    num = Math.floor(num / 10);
+  }
+  arr = arr.reverse();
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[arr.length - 1 - i] > arr[arr.length - 2 - i]) {
+      firstarr = [...arr];
+      firstarr.splice(arr.length - 1 - i);
+      lastarr = [...arr];
+      lastarr.splice(0, firstarr.length);
+      lastarr = lastarr.sort();
+      for (let j = 0; j < lastarr.length; j += 1) {
+        if (lastarr[j] > firstarr[firstarr.length - 1]) {
+          [lastarr[j], firstarr[firstarr.length - 1]] = [
+            firstarr[firstarr.length - 1],
+            lastarr[j],
+          ];
+          break;
+        }
+      }
+      arr = [...firstarr, ...lastarr];
+      break;
+    }
+  }
+  for (let i = 0; i < arr.length; i += 1) {
+    result = result * 10 + arr[i];
+  }
+  return result;
 }
 
 module.exports = {
